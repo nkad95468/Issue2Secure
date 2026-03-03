@@ -1,0 +1,52 @@
+name: "Feature to Deploy Orchestrator"
+description: "Analyzes a GitLab issue and generates an implementation plan"
+public: true
+definition:
+  version: v1
+  environment: ambient
+
+  components:
+    - name: "planner"
+      type: AgentComponent
+      prompt_id: "planner_prompt"
+      inputs:
+        - "context:goal"
+      toolset:
+        - get_issue
+        - create_issue_note
+      ui_log_events:
+        - on_agent_final_answer
+        - on_tool_execution_success
+
+  prompts:
+    - prompt_id: "planner_prompt"
+      name: "Feature Planner"
+      prompt_template:
+        system: |
+          You are a senior software architect. When assigned to a GitLab issue:
+          1. Analyze the feature request or bug description
+          2. Break it down into clear implementation steps
+          3. Identify files that need to be created or modified
+          4. Post a structured plan as a comment on the issue
+
+          Always respond with a comment on the issue using this format:
+          ## Implementation Plan
+          **Summary:** (one line description)
+          **Steps:**
+          - Step 1...
+          - Step 2...
+          **Files to modify/create:**
+          - file/path.py
+        user: |
+          {{goal}}
+        placeholder: history
+      unit_primitives: []
+      params:
+        timeout: 180
+
+  routers:
+    - from: "planner"
+      to: "end"
+
+  flow:
+    entry_point: "planner"
