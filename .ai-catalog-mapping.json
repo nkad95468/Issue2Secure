@@ -1,0 +1,25 @@
+{
+  "schema_version": "1.0",
+  "agents": {},
+  "flows": {
+    "flows/flow.yml": {
+      "catalog_id": "gid://gitlab/Ai::Catalog::Item/1004200",
+      "name": "Feature to Deploy Orchestrator",
+      "created_at": "2026-03-03T22:50:41.072Z",
+      "item_consumers": {
+        "group": {
+          "id": "gid://gitlab/Ai::Catalog::ItemConsumer/4979850"
+        },
+        "project": {
+          "id": "gid://gitlab/Ai::Catalog::ItemConsumer/4979851"
+        }
+      },
+      "latest_sync": {
+        "git_tag": "v0.1.0",
+        "catalog_version": "1.0.0",
+        "synced_at": "2026-03-03T22:50:41.072Z",
+        "definition_hash": "2c66f2258cd46078"
+      }
+    }
+  }
+}
