@@ -32,5 +32,5 @@ system_prompt: |
 tools:
   - get_issue
   - create_issue_note
-  - list_files
+  - find_files  # era list_files
   - read_file
