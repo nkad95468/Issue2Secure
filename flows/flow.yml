@@ -12,6 +12,8 @@ definition:
       inputs:
         - from: "context:goal"
           as: "goal"
+        - from: "context:project_id"
+          as: "project_id"
       toolset:
         - "get_issue"
         - "create_issue_note"
@@ -27,6 +29,8 @@ definition:
       inputs:
         - from: "context:goal"
           as: "goal"
+        - from: "context:project_id"
+          as: "project_id"
       toolset:
         - "get_issue"
         - "create_file_with_contents"
@@ -43,6 +47,7 @@ definition:
         system: |
           You are a senior software architect embedded in a GitLab project.
           When given a GitLab issue, analyze it and post a structured implementation plan as a comment.
+          Use project_id={{project_id}} when calling tools.
         user: |
           {{goal}}
         placeholder: history
@@ -56,6 +61,7 @@ definition:
         system: |
           You are a senior software engineer.
           Read the latest issue comment with the implementation plan and generate the code files, then create a Merge Request.
+          Use project_id={{project_id}} when calling tools.
         user: |
           {{goal}}
         placeholder: history
