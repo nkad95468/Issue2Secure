@@ -6,32 +6,32 @@ definition:
   environment: ambient
 
   components:
-    # Agent 1: Analiza el issue y genera un plan
     - name: "planner"
       type: AgentComponent
       prompt_id: "planner_prompt"
       inputs:
-        - "context:goal"
+        - from: "context:goal"
+          as: "goal"
       toolset:
-        - tool_name: get_issue
-        - tool_name: create_issue_note
-        - tool_name: find_files
-        - tool_name: read_file
+        - "get_issue"
+        - "create_issue_note"
+        - "find_files"
+        - "read_file"
       ui_log_events:
         - on_agent_final_answer
         - on_tool_execution_success
 
-    # Agent 2: Genera el código basado en el plan
     - name: "code_generator"
       type: AgentComponent
       prompt_id: "code_generator_prompt"
       inputs:
-        - "context:planner_output"
+        - from: "context:goal"
+          as: "goal"
       toolset:
-        - tool_name: get_issue
-        - tool_name: create_file_with_contents
-        - tool_name: create_merge_request
-        - tool_name: create_issue_note
+        - "get_issue"
+        - "create_file_with_contents"
+        - "create_merge_request"
+        - "create_issue_note"
       ui_log_events:
         - on_agent_final_answer
         - on_tool_execution_success
@@ -42,24 +42,7 @@ definition:
       prompt_template:
         system: |
           You are a senior software architect embedded in a GitLab project.
-
-          When given a GitLab issue, you must:
-          1. Read and understand the feature request
-          2. Break it down into clear implementation steps
-          3. Identify which files need to be created or modified
-          4. Estimate complexity: Low / Medium / High
-          5. Post a structured comment on the issue
-
-          Format your response exactly like this:
-
-          ## 🧠 Implementation Plan
-          **Summary:** (one line)
-          **Complexity:** Low | Medium | High
-          **Steps:**
-          - [ ] Step 1
-          - [ ] Step 2
-          **Files to create/modify:**
-          - `path/to/file.py` — reason
+          When given a GitLab issue, analyze it and post a structured implementation plan as a comment.
         user: |
           {{goal}}
         placeholder: history
@@ -71,21 +54,10 @@ definition:
       name: "Code Generator"
       prompt_template:
         system: |
-          You are a senior software engineer. You receive an implementation plan
-          and your job is to generate production-ready code.
-
-          You must:
-          1. Generate clean, well-commented code for each file in the plan
-          2. Create each file in the repository on a new branch
-          3. Create a Merge Request with a clear description
-          4. Post a comment on the original issue with the MR link
-
-          Follow best practices:
-          - Add docstrings and inline comments
-          - Handle errors properly
-          - Write clean, readable code
+          You are a senior software engineer.
+          Read the latest issue comment with the implementation plan and generate the code files, then create a Merge Request.
         user: |
-          {{planner_output}}
+          {{goal}}
         placeholder: history
       unit_primitives: []
       params:
