@@ -13,10 +13,10 @@ definition:
       inputs:
         - "context:goal"
       toolset:
-        - get_issue
-        - create_file_with_contents
-        - create_merge_request
-        - create_issue_note
+        - tool_name: get_issue
+        - tool_name: create_issue_note
+        - tool_name: find_files
+        - tool_name: read_file
       ui_log_events:
         - on_agent_final_answer
         - on_tool_execution_success
@@ -28,10 +28,10 @@ definition:
       inputs:
         - "context:planner_output"
       toolset:
-        - get_issue
-        - create_file
-        - create_merge_request
-        - create_issue_note
+        - tool_name: get_issue
+        - tool_name: create_file_with_contents
+        - tool_name: create_merge_request
+        - tool_name: create_issue_note
       ui_log_events:
         - on_agent_final_answer
         - on_tool_execution_success
