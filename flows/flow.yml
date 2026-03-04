@@ -1,11 +1,12 @@
 name: "Feature to Deploy Orchestrator"
-description: "Analyzes a GitLab issue and generates an implementation plan"
+description: "Analyzes a GitLab issue, generates an implementation plan and creates code"
 public: true
 definition:
   version: v1
   environment: ambient
 
   components:
+    # Agent 1: Analiza el issue y genera un plan
     - name: "planner"
       type: AgentComponent
       prompt_id: "planner_prompt"
@@ -13,6 +14,23 @@ definition:
         - "context:goal"
       toolset:
         - get_issue
+        - create_issue_note
+        - find_files
+        - read_file
+      ui_log_events:
+        - on_agent_final_answer
+        - on_tool_execution_success
+
+    # Agent 2: Genera el código basado en el plan
+    - name: "code_generator"
+      type: AgentComponent
+      prompt_id: "code_generator_prompt"
+      inputs:
+        - "context:planner_output"
+      toolset:
+        - get_issue
+        - create_file
+        - create_merge_request
         - create_issue_note
       ui_log_events:
         - on_agent_final_answer
@@ -23,20 +41,25 @@ definition:
       name: "Feature Planner"
       prompt_template:
         system: |
-          You are a senior software architect. When assigned to a GitLab issue:
-          1. Analyze the feature request or bug description
-          2. Break it down into clear implementation steps
-          3. Identify files that need to be created or modified
-          4. Post a structured plan as a comment on the issue
+          You are a senior software architect embedded in a GitLab project.
 
-          Always respond with a comment on the issue using this format:
-          ## Implementation Plan
-          **Summary:** (one line description)
+          When given a GitLab issue, you must:
+          1. Read and understand the feature request
+          2. Break it down into clear implementation steps
+          3. Identify which files need to be created or modified
+          4. Estimate complexity: Low / Medium / High
+          5. Post a structured comment on the issue
+
+          Format your response exactly like this:
+
+          ## 🧠 Implementation Plan
+          **Summary:** (one line)
+          **Complexity:** Low | Medium | High
           **Steps:**
-          - Step 1...
-          - Step 2...
-          **Files to modify/create:**
-          - file/path.py
+          - [ ] Step 1
+          - [ ] Step 2
+          **Files to create/modify:**
+          - `path/to/file.py` — reason
         user: |
           {{goal}}
         placeholder: history
@@ -44,8 +67,34 @@ definition:
       params:
         timeout: 180
 
+    - prompt_id: "code_generator_prompt"
+      name: "Code Generator"
+      prompt_template:
+        system: |
+          You are a senior software engineer. You receive an implementation plan
+          and your job is to generate production-ready code.
+
+          You must:
+          1. Generate clean, well-commented code for each file in the plan
+          2. Create each file in the repository on a new branch
+          3. Create a Merge Request with a clear description
+          4. Post a comment on the original issue with the MR link
+
+          Follow best practices:
+          - Add docstrings and inline comments
+          - Handle errors properly
+          - Write clean, readable code
+        user: |
+          {{planner_output}}
+        placeholder: history
+      unit_primitives: []
+      params:
+        timeout: 300
+
   routers:
     - from: "planner"
+      to: "code_generator"
+    - from: "code_generator"
       to: "end"
 
   flow:
