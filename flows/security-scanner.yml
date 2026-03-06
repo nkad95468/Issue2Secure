@@ -1,4 +1,4 @@
-name: "Security Scanner"
+name: "Issue2Secure — Security Scanner"
 description: "Scans generated code in a GitLab issue for security vulnerabilities and approves or blocks the MR"
 public: true
 definition:

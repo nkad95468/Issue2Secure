@@ -1,4 +1,4 @@
-name: "Feature Planner Agent"
+name: "Issue2Secure — Feature Planner"
 description: "Analyzes a GitLab issue and generates a detailed implementation plan"
 public: true
 system_prompt: |

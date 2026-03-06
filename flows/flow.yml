@@ -1,4 +1,4 @@
-name: "Feature to Deploy Orchestrator"
+name: "Issue2Secure — Feature to Deploy Orchestrator"
 description: "Analyzes a GitLab issue, generates an implementation plan and creates code"
 public: true
 definition:
