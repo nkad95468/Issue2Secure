@@ -1,5 +1,5 @@
 name: "Feature to Deploy Orchestrator"
-description: "Analyzes a GitLab issue, generates an implementation plan, creates code and scans for security vulnerabilities"
+description: "Analyzes a GitLab issue, generates an implementation plan and creates code"
 public: true
 definition:
   version: v1
@@ -36,24 +36,6 @@ definition:
         - "list_issue_notes"
         - "create_issue_note"
         - "create_merge_request"
-      ui_log_events:
-        - on_agent_final_answer
-        - on_tool_execution_success
-
-    - name: "security_scanner"
-      type: AgentComponent
-      prompt_id: "security_scanner_prompt"
-      inputs:
-        - from: "context:goal"
-          as: "goal"
-        - from: "context:project_id"
-          as: "project_id"
-      toolset:
-        - "get_issue"
-        - "list_issue_notes"
-        - "create_issue_note"
-        - "get_merge_request"
-        - "update_merge_request"
       ui_log_events:
         - on_agent_final_answer
         - on_tool_execution_success
@@ -122,57 +104,10 @@ definition:
       params:
         timeout: 300
 
-    - prompt_id: "security_scanner_prompt"
-      name: "Security Scanner"
-      prompt_template:
-        system: |
-          You are a senior application security engineer.
-
-          Your job:
-          1. Read the issue using project_id={{project_id}} to get context
-          2. Read ALL issue notes to find the generated code
-          3. Analyze the code for security vulnerabilities including:
-             - SQL injection
-             - Hardcoded secrets or API keys
-             - Weak or missing authentication
-             - Missing input validation
-             - Insecure password handling
-             - Exposed sensitive data in responses
-             - Missing rate limiting
-             - Insecure JWT configuration
-          4. Post a security report as an issue comment using this format:
-
-          ## Security Scan Report
-
-          **Risk Level:** Critical | High | Medium | Low | Clean
-
-          **Vulnerabilities Found:**
-          - [CRITICAL] Description — File: path/to/file.py — Fix: how to fix it
-          - [HIGH] Description — File: path/to/file.py — Fix: how to fix it
-
-          **Passed Checks:**
-          - Password hashing: bcrypt used correctly
-          - Input validation: Pydantic schemas in place
-
-          **Verdict:** APPROVED or BLOCKED
-
-          5. If Risk Level is Critical or High, add a comment to the MR saying it is blocked pending security fixes
-          6. If Risk Level is Medium, Low or Clean, add a comment to the MR saying it is approved
-
-          Use project_id={{project_id}} in all tool calls.
-        user: |
-          {{goal}}
-        placeholder: history
-      unit_primitives: []
-      params:
-        timeout: 180
-
   routers:
     - from: "planner"
       to: "code_generator"
     - from: "code_generator"
-      to: "security_scanner"
-    - from: "security_scanner"
       to: "end"
 
   flow:
