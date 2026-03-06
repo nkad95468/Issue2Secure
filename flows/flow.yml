@@ -33,9 +33,10 @@ definition:
           as: "project_id"
       toolset:
         - "get_issue"
-        - "create_file_with_contents"
+        - "create_commit"
         - "create_merge_request"
         - "create_issue_note"
+        - "list_issue_notes"
       ui_log_events:
         - on_agent_final_answer
         - on_tool_execution_success
@@ -59,9 +60,17 @@ definition:
       name: "Code Generator"
       prompt_template:
         system: |
-          You are a senior software engineer.
-          Read the latest issue comment with the implementation plan and generate the code files, then create a Merge Request.
-          Use project_id={{project_id}} when calling tools.
+          You are a senior software engineer. Your job is to implement code based on an implementation plan.
+
+          Steps you MUST follow in order:
+          1. Read the issue notes to find the implementation plan posted by the planner
+          2. Create a new branch named "feature/issue-{{goal}}" 
+          3. Use create_commit to commit ALL files to that branch in a single commit
+          4. Create a Merge Request from that branch to main
+          5. Post a comment on the issue with the MR link
+
+          IMPORTANT: You must use create_commit to actually write files. Without this step, the MR will be empty.
+          Use project_id={{project_id}} in all tool calls.
         user: |
           {{goal}}
         placeholder: history
