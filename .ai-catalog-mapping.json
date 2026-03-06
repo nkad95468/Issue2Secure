@@ -2,49 +2,43 @@
   "schema_version": "1.0",
   "agents": {
     "agents/agent.yml": {
-      "catalog_id": "gid://gitlab/Ai::Catalog::Item/1004202",
+      "catalog_id": "gid://gitlab/Ai::Catalog::Item/1004376",
       "name": "Feature Planner Agent",
-      "created_at": "2026-03-03T23:46:56.010Z",
+      "created_at": "2026-03-06T00:48:55.662Z",
       "item_consumers": {
         "group": {
-          "id": "gid://gitlab/Ai::Catalog::ItemConsumer/4979947"
+          "id": "gid://gitlab/Ai::Catalog::ItemConsumer/5163123"
         },
         "project": {
-          "id": "gid://gitlab/Ai::Catalog::ItemConsumer/4979948"
+          "id": "gid://gitlab/Ai::Catalog::ItemConsumer/5163124"
         }
       },
       "latest_sync": {
-        "git_tag": "v0.2.0",
+        "git_tag": "v0.6.0",
         "catalog_version": "1.0.0",
-        "synced_at": "2026-03-03T23:46:56.010Z",
+        "synced_at": "2026-03-06T00:48:55.662Z",
         "definition_hash": "f1f4cdb911053705"
       }
     }
   },
   "flows": {
     "flows/flow.yml": {
-      "catalog_id": "gid://gitlab/Ai::Catalog::Item/1004200",
+      "catalog_id": "gid://gitlab/Ai::Catalog::Item/1004377",
       "name": "Feature to Deploy Orchestrator",
-      "created_at": "2026-03-03T22:50:41.072Z",
+      "created_at": "2026-03-06T00:48:56.647Z",
       "item_consumers": {
         "group": {
-          "id": "gid://gitlab/Ai::Catalog::ItemConsumer/4979850"
+          "id": "gid://gitlab/Ai::Catalog::ItemConsumer/5163125"
         },
         "project": {
-          "id": "gid://gitlab/Ai::Catalog::ItemConsumer/4979851"
+          "id": "gid://gitlab/Ai::Catalog::ItemConsumer/5163126"
         }
       },
       "latest_sync": {
-<<<<<<< Updated upstream
-        "git_tag": "v0.4.0",
-        "catalog_version": "1.2.0",
-        "synced_at": "2026-03-04T18:23:15.310Z",
-=======
-        "git_tag": "v0.5.0",
-        "catalog_version": "1.2.0",
-        "synced_at": "2026-03-04T18:35:14.179Z",
->>>>>>> Stashed changes
-        "definition_hash": "bfc3c31069673ab3"
+        "git_tag": "v0.6.0",
+        "catalog_version": "1.0.0",
+        "synced_at": "2026-03-06T00:48:56.647Z",
+        "definition_hash": "1e818e3e978e4b66"
       }
     }
   }
